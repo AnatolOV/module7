@@ -5,7 +5,6 @@ class WordsFinder:
     def get_all_words(self):
         all_words = {}
         for file_name in self.file_names:
-            # print(file_name,':')
             with open(file_name, encoding='utf-8') as file:
                 intro_ = file.read()
                 words = intro_.split()
@@ -17,21 +16,29 @@ class WordsFinder:
         return all_words
 
     def find(self, word):
+        fword = word.lower()
         dict_ = self.get_all_words()
         new_dict = {}
         for key, values in dict_.items():
             for value in values:
-                if value == word:
+                fvalue = value.lower()
+                if fvalue == fword:
                     index = values.index(value)
-                    # print(key, index)
                     new_dict[key] = index
         # print(new_dict)
         return new_dict
 
+    def count(self, word):
+        dict_ = self.get_all_words()
+        new_dict = {}
+        count = 0
+        fword = word.lower()
+        for key, values in dict_.items():
+            for value in values:
+                fvalue = value.lower()
+                if fvalue == fword:
+                    count = count + 1
 
+        new_dict[key] = count
+        return new_dict
 
-
-
-a = WordsFinder('products.txt', 'test.txt')
-print(a.get_all_words())
-print(a.find('кодировку'))
